@@ -36,11 +36,11 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 
-		<!-- Adiciona biblioteca de serializacao
-		 para permitir representação em XML dos recursos. -->
+		<!-- Adiciona dependencia do DevTools para reload rapido
+		 da aplicacao durante desenvolvimento. -->
 		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-xml</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 	</dependencies>
 
