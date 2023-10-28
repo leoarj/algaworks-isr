@@ -27,6 +27,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Adiciona dependencia do project Lombook,
+		 o qual sera utilizado apenas em tempo de compilacao.
+		 Essa dependencia ajuda a reduzir codigo boilerplate. -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -34,6 +42,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+
+				<!-- Configura para excluir a dependencia do
+				 Lombok no build, ja que nao há necessidade
+				 e o mesmo só é utilizado em tempo de build. -->
+				<configuration>
+					<excludes>
+						<groupId>org.projectlombok</groupId>
+						<artifactId>lombok</artifactId>
+					</excludes>
+				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>
