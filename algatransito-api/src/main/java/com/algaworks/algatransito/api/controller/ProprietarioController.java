@@ -1,6 +1,9 @@
 package com.algaworks.algatransito.api.controller;
 
 import com.algaworks.algatransito.domain.model.Proprietario;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,21 +20,29 @@ public class ProprietarioController {
     * uma transformação, como JSON, XML etc.
     */
 
+    /*
+    * EntityManager é uma interface que é implementada pelo motor de acesso ao banco de dados (Hibernate)
+    * e fornece acesso e manipulação dos objetos do banco de dados.
+    *
+    * A anotação @PersistenceContext diz ao Spring para injetar uma instânica de um EntityManager para uso.
+    */
+    @PersistenceContext
+    private EntityManager manager;
+
     @GetMapping("/proprietarios")
     public List<Proprietario> listar() {
-        var proprietario1 = new Proprietario();
-        proprietario1.setId(1L);
-        proprietario1.setNome("João");
-        proprietario1.setTelefone("34 99999-1111");
-        proprietario1.setEmail("joaodascouves@algaworks.com");
 
-        var proprietario2 = new Proprietario();
-        proprietario2.setId(2L);
-        proprietario2.setNome("Maria");
-        proprietario2.setTelefone("11 97777-1111");
-        proprietario2.setEmail("mariadasilva@algaworks.com");
+        /*
+        * Através do EntityManager é possível criar uma consulta tipada
+        * e a partir dela obter objetos mapeados a partir banco.
+        */
 
-        return Arrays.asList(proprietario1, proprietario2);
+        return manager
+                .createQuery("from Proprietario", Proprietario.class)
+                .getResultList();
+
+//        TypedQuery<Proprietario> query = manager.createQuery("from Proprietario", Proprietario.class);
+//        return query.getResultList();
     }
 
 }
