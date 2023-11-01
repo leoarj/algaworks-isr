@@ -119,4 +119,25 @@ public class ProprietarioController {
         return ResponseEntity.ok(proprietarioAtualizado);
     }
 
+    /*
+    * Endpoint para exclusão de recurso.
+    *
+    * @DeleteMapping = Mapeamento para o verbo DELETE.
+    * 204 = Executado com sucesso, mas sem conteúdo de retorno.
+    * Obs.: No caso do DELETE e outras operações que quando executadas
+    * com sucesso mas não produzem conteúdo de retorno, essa é a convenção.
+    *
+    * 404 = Recurso não encontrado.
+    */
+
+    @DeleteMapping("/{proprietarioId}")
+    public ResponseEntity<Void> remover(@PathVariable Long proprietarioId) {
+        if (!proprietarioRepository.existsById(proprietarioId)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        proprietarioRepository.deleteById(proprietarioId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
