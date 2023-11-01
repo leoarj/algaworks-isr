@@ -88,4 +88,35 @@ public class ProprietarioController {
         return proprietarioRepository.save(proprietario);
     }
 
+    /*
+    * Endpoint para atualização de recurso.
+    *
+    * @PutMapping = Mapeamento para o verbo PUT.
+    *
+    * Deve utilizar variável de caminho para indicar qual
+    * o recurso único a ser atualizado.
+    *
+    * Deve realizar o bind entre a variável de caminho para
+    * o identificador único do recurso (chave primária)
+    * e o bind do corpo da requisição para o objeto recebido como argumento.
+    *
+    * Deve-se verificar se o recurso já existe ou não e após
+    * isso atualizar o identificador no objeto recebido e em seguida
+    * aplicar as alterações no banco de dados via repository.
+    * 200 = Recurso atualizado.
+    * 404 = Recurso não encontrado.
+    */
+
+    @PutMapping("/{proprietarioId}")
+    public ResponseEntity<Proprietario> atualizar(@PathVariable Long proprietarioId,
+                                                  @RequestBody Proprietario proprietario) {
+        if (!proprietarioRepository.existsById(proprietarioId)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        proprietario.setId(proprietarioId);
+        Proprietario proprietarioAtualizado = proprietarioRepository.save(proprietario);
+        return ResponseEntity.ok(proprietarioAtualizado);
+    }
+
 }
