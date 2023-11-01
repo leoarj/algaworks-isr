@@ -7,11 +7,9 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,9 +45,9 @@ public class ProprietarioController {
 
     @GetMapping
     public List<Proprietario> listar() {
-        //return proprietarioRepository.findAll();
+        return proprietarioRepository.findAll();
         //return proprietarioRepository.findByNome("Proprietário 2");
-        return proprietarioRepository.findByNomeContaining("3");
+        //return proprietarioRepository.findByNomeContaining("3");
     }
 
     /*
@@ -66,6 +64,28 @@ public class ProprietarioController {
         return proprietarioRepository.findById(proprietarioId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    /*
+    * Endpoint para criação de recurso.
+    *
+    * @PostMapping = Mapeamento para verbo POST.
+    *
+    * @ResponseStatus = Forma simplificada de especificar o código
+    * de status caso a solicitação seja processada com sucesso (no caso
+    * retornando o código 201-Created),
+    *
+    * @RequestBody = Vincula o corpo da requição ao argumento do método
+    * (Serialização do JSON será para o objeto recebido como argumento).
+    *
+    * Retorna o próprio recurso com a chave primmária criada pela API.
+    *
+    */
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED) // 201
+    public Proprietario adicionar(@RequestBody Proprietario proprietario) {
+        return proprietarioRepository.save(proprietario);
     }
 
 }
