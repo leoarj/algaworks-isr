@@ -2,6 +2,7 @@ package com.algaworks.algatransito.api.controller;
 
 import com.algaworks.algatransito.domain.model.Proprietario;
 import com.algaworks.algatransito.domain.repository.ProprietarioRepository;
+import com.algaworks.algatransito.domain.service.RegistroProprietarioService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -36,6 +37,8 @@ public class ProprietarioController {
     *
     * Injetar via construtor = Possíve e mais recomendado (boa prática).
     */
+
+    private final RegistroProprietarioService registroProprietarioService;
 
     //@Autowired
     private ProprietarioRepository proprietarioRepository;
@@ -90,7 +93,8 @@ public class ProprietarioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201
     public Proprietario adicionar(@Valid @RequestBody Proprietario proprietario) {
-        return proprietarioRepository.save(proprietario);
+        return registroProprietarioService.salvar(proprietario);
+        //return proprietarioRepository.save(proprietario);
     }
 
     /*
@@ -120,7 +124,8 @@ public class ProprietarioController {
         }
 
         proprietario.setId(proprietarioId);
-        Proprietario proprietarioAtualizado = proprietarioRepository.save(proprietario);
+        //Proprietario proprietarioAtualizado = proprietarioRepository.save(proprietario);
+        Proprietario proprietarioAtualizado = registroProprietarioService.salvar(proprietario);
         return ResponseEntity.ok(proprietarioAtualizado);
     }
 
@@ -141,7 +146,8 @@ public class ProprietarioController {
             return ResponseEntity.notFound().build();
         }
 
-        proprietarioRepository.deleteById(proprietarioId);
+        //proprietarioRepository.deleteById(proprietarioId);
+        registroProprietarioService.excluir(proprietarioId);
         return ResponseEntity.noContent().build();
     }
 
