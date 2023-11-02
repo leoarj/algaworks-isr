@@ -5,6 +5,7 @@ import com.algaworks.algatransito.domain.repository.ProprietarioRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -82,9 +83,13 @@ public class ProprietarioController {
     *
     */
 
+    /*
+    * @Valid no argumento = Para ativar a validação do Jakarta Bean Validation.
+    */
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // 201
-    public Proprietario adicionar(@RequestBody Proprietario proprietario) {
+    public Proprietario adicionar(@Valid @RequestBody Proprietario proprietario) {
         return proprietarioRepository.save(proprietario);
     }
 
