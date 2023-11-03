@@ -1,5 +1,6 @@
 package com.algaworks.algatransito.domain.service;
 
+import com.algaworks.algatransito.domain.exception.NegocioException;
 import com.algaworks.algatransito.domain.model.Proprietario;
 import com.algaworks.algatransito.domain.repository.ProprietarioRepository;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,24 @@ public class RegistroProprietarioService {
 
     @Transactional
     public Proprietario salvar(Proprietario proprietario) {
+
+        /*
+        * Regra de negócio para verificar se o e-mail já é utilizado por outro proprietário,
+        * para validar do lado da aplicação e não deixar apenas a cargo do banco de dados.
+        */
+
+        boolean emailEmUso = proprietarioRepository.findByEmail(proprietario.getEmail())
+                .filter(p -> !p.equals(proprietario))
+                .isPresent();
+
+        if (emailEmUso) {
+            throw new NegocioException(
+                    String.format("Já existe um proprietário cadastrado com este e-mail%nEmail: %s",
+                            proprietario.getEmail()
+                    )
+            );
+        }
+
         return proprietarioRepository.save(proprietario);
     }
 
