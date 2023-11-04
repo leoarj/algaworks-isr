@@ -24,6 +24,12 @@ public class RegistroProprietarioService {
 
     private final ProprietarioRepository proprietarioRepository;
 
+    // Para reaproveitamento de código em outros services.
+    public Proprietario buscar(Long proprietarioId) {
+        return proprietarioRepository.findById(proprietarioId)
+                .orElseThrow(() -> new NegocioException("Proprietário não encontrado"));
+    }
+
     /*
     * Métodos que serão usados pelo controlador.
     *
