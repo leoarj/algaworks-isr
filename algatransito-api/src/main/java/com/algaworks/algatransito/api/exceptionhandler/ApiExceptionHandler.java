@@ -1,10 +1,12 @@
 package com.algaworks.algatransito.api.exceptionhandler;
 
 import com.algaworks.algatransito.domain.exception.NegocioException;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -12,6 +14,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.net.URI;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /*
 * Ponto único para tratamento de exceções de forma global.
@@ -37,6 +41,17 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatus(status);
         problemDetail.setTitle("Um ou mais campos estão inválidos");
         problemDetail.setType(URI.create("https://algatransito.com/erros/campos-invalidos"));
+
+        // Extrai da exceção um mapa com os campos associados a suas respectivas mensagens de erro.
+        Map<String, String> fields = ex.getBindingResult()
+                .getAllErrors()
+                .stream()
+                .collect(Collectors.toMap(objectError -> ((FieldError) objectError).getField(),
+                        DefaultMessageSourceResolvable::getDefaultMessage));
+
+        // Cria uma propriedade personalizada no corpo do detalhamento de erro
+        // passando o mapeamento dos campos e mensagens de erro.
+        problemDetail.setProperty("fields", fields);
 
         // Deve repassar uma instância de ProblemDetail (do pacote org.springframework.http)
         // para que a alteração tenha efeito.
