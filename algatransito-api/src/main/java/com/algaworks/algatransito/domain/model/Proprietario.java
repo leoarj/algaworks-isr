@@ -1,5 +1,6 @@
 package com.algaworks.algatransito.domain.model;
 
+import com.algaworks.algatransito.domain.validation.ValidationGroups;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -24,7 +25,7 @@ import lombok.Setter;
 //@Table(name = "tb_proprietario") // Caso o nome da tabela no db fosse diferente.
 public class Proprietario {
 
-    @NotNull
+    @NotNull(groups = ValidationGroups.ProprietarioId.class)
     // Inclui id para as lógicas de equals() e hashCode().
     @EqualsAndHashCode.Include
     @Id

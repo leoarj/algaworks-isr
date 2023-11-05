@@ -1,5 +1,6 @@
 package com.algaworks.algatransito.domain.model;
 
+import com.algaworks.algatransito.domain.validation.ValidationGroups;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import jakarta.persistence.*;
@@ -7,6 +8,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.groups.ConvertGroup;
+import jakarta.validation.groups.Default;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +28,8 @@ public class Veiculo {
     private Long id;
 
     @Valid // Para validação em cascata
+    // Para converter o grupo de validação no contexto de manipulação de um recurso de Veículo.
+    @ConvertGroup(from = Default.class, to = ValidationGroups.ProprietarioId.class)
     @NotNull
     // Relacionamento muitos-para-um
     @ManyToOne
