@@ -4,13 +4,18 @@ import com.algaworks.algatransito.domain.exception.NegocioException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /*
 * Ponto único para tratamento de exceções de forma global.
+*
+* ResponseEntityExceptionHandler = estende essa classe que por padrão
+* já trata as mensagens de erro de acordo com a RFC 7807.
+* Ref.: https://www.rfc-editor.org/rfc/rfc7807
 */
 
 @RestControllerAdvice
-public class ApiExceptionHandler {
+public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     /*
      * Método para capturar exceções específicas de negócio,
