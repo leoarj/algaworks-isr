@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -77,6 +78,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
      *
      * Aqui além de fornecer um status apropriado, também seria possível
      * registrar um log, notificações entre outras ações.
+     *
+     * Refatorado para retornar um ProgramDetail padronizando a mensagem de erro (RFC 7807).
      */
 
     @ExceptionHandler(NegocioException.class)
@@ -85,6 +88,23 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST); //400
         problemDetail.setTitle(e.getMessage());
         problemDetail.setType(URI.create("https://algatransito.com/erros/regra-de-negocio"));
+
+        return problemDetail;
+    }
+
+    /*
+    * Captura erros de integridade do banco de dados de forma mais genérica.
+    *
+    * Devido a ser um projeto didático, nesse caso está confiando nas restrições impostas no banco de dados
+    * para tratar erros de violação, como uma exclusão de proprietário já relacionado
+    * a um ou mais veículos por exemplo.
+    */
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ProblemDetail handleDataIntegrity(DataIntegrityViolationException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT); //409
+        problemDetail.setTitle("Recurso está em uso");
+        problemDetail.setType(URI.create("https://algatransito.com/erros/recurso-em-uso"));
 
         return problemDetail;
     }
