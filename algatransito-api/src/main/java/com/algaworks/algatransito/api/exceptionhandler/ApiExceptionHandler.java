@@ -1,6 +1,9 @@
 package com.algaworks.algatransito.api.exceptionhandler;
 
 import com.algaworks.algatransito.domain.exception.NegocioException;
+import lombok.AllArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
@@ -25,8 +28,12 @@ import java.util.stream.Collectors;
 * Ref.: https://www.rfc-editor.org/rfc/rfc7807
 */
 
+@AllArgsConstructor
 @RestControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    // Para ter acesso ao recurso de mensagens personalizadas de validação (messages.properties).
+    private final MessageSource messageSource;
 
     /*
     * Método para personalizar a resposta de acordo com a RFC 7807,
@@ -43,11 +50,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setType(URI.create("https://algatransito.com/erros/campos-invalidos"));
 
         // Extrai da exceção um mapa com os campos associados a suas respectivas mensagens de erro.
+        // Com MessageSource: Recupera a mensagem específica de acordo com o code do objeto de erro.
         Map<String, String> fields = ex.getBindingResult()
                 .getAllErrors()
                 .stream()
                 .collect(Collectors.toMap(objectError -> ((FieldError) objectError).getField(),
-                        DefaultMessageSourceResolvable::getDefaultMessage));
+                        //DefaultMessageSourceResolvable::getDefaultMessage));
+                        objectError -> messageSource.getMessage(objectError, LocaleContextHolder.getLocale())));
 
         // Cria uma propriedade personalizada no corpo do detalhamento de erro
         // passando o mapeamento dos campos e mensagens de erro.
