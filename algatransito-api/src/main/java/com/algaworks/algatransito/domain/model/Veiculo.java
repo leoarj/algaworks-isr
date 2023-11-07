@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -64,8 +65,9 @@ public class Veiculo {
     private StatusVeiculo status;
 
     // JPA indentifica camel-case automaticamente para snake-case do DB.
+    // Utilizando OffsetDateTime para retornar com o offset (respeitando o padrãoo ISO 8601).
     @JsonProperty(access = Access.READ_ONLY)
-    private LocalDateTime dataCadastro;
+    private OffsetDateTime dataCadastro;
     @JsonProperty(access = Access.READ_ONLY)
-    private LocalDateTime dataApreensao;
+    private OffsetDateTime dataApreensao;
 }
