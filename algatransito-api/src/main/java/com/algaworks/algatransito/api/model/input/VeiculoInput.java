@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 /*
  * Modelo de representação para entrada de dados um recurso de Proprietario.
@@ -13,6 +15,8 @@ import jakarta.validation.constraints.Size;
  * e retornadas no modelo de representação de saída.
  */
 
+@Getter
+@Setter
 public class VeiculoInput {
 
     @NotBlank
