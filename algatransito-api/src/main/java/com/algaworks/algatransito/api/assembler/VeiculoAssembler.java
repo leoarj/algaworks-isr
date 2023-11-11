@@ -20,7 +20,7 @@ public class VeiculoAssembler {
 
     private final ModelMapper modelMapper;
 
-    // Adiciona transformação do modelo de entrada para a entidade.
+    // Adiciona transformação do modelo de entrada para entidade.
     public Veiculo toEntity(VeiculoInput veiculoInput) {
         return modelMapper.map(veiculoInput, Veiculo.class);
     }

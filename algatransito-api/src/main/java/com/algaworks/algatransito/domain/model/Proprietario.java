@@ -25,7 +25,6 @@ import lombok.Setter;
 //@Table(name = "tb_proprietario") // Caso o nome da tabela no db fosse diferente.
 public class Proprietario {
 
-    @NotNull(groups = ValidationGroups.ProprietarioId.class)
     // Inclui id para as lógicas de equals() e hashCode().
     @EqualsAndHashCode.Include
     @Id
