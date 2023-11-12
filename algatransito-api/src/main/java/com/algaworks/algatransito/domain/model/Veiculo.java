@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,4 +41,27 @@ public class Veiculo {
     // Utilizando OffsetDateTime para retornar com o offset (respeitando o padrão ISO 8601).
     private OffsetDateTime dataCadastro;
     private OffsetDateTime dataApreensao;
+
+    // Mapeamento inverso para as autuações do veículo
+    // mappedBy = Qual propriedade na outra classe corresponde ao relacionamento.
+    @OneToMany(mappedBy = "veiculo")
+    private List<Autuacao> autuacoes = new ArrayList<>();
+
+    /**
+     * Regra de negócio específica do domínio para adicionar
+     * uma nova autuação a um veículo.
+     *
+     * <br/> - Altera a data apropriada na autuação.
+     * <br/>- Relaciona o veículo a autuação.
+     * <br/>- Adiciona a autuação à lista de autuações do veículo.
+     *
+     * @param autuacao Autuação a ser relacionada ao veículo.
+     * @return Autuação com data de ocorrência e veículo.
+     */
+    public Autuacao adicionarAutuacao(Autuacao autuacao) {
+        autuacao.setDataOcorrencia(OffsetDateTime.now());
+        autuacao.setVeiculo(this);
+        getAutuacoes().add(autuacao);
+        return autuacao;
+    }
 }
