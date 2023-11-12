@@ -44,7 +44,8 @@ public class Veiculo {
 
     // Mapeamento inverso para as autuações do veículo
     // mappedBy = Qual propriedade na outra classe corresponde ao relacionamento.
-    @OneToMany(mappedBy = "veiculo")
+    // CascadeType.ALL = Para aplicar em cascata todas as operações para a entidade relacionada.
+    @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
     private List<Autuacao> autuacoes = new ArrayList<>();
 
     /**
