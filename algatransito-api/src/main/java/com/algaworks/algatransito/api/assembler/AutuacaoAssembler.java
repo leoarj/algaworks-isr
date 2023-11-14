@@ -9,23 +9,19 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Component
-public class AutuacaoAssembler {
+public class AutuacaoAssembler extends BaseAssembler<Autuacao, AutuacaoInput, AutuacaoModel> {
 
-    private final ModelMapper modelMapper;
-
-    public Autuacao toEntity(AutuacaoInput autuacaoInput) {
-        return modelMapper.map(autuacaoInput, Autuacao.class);
+    public AutuacaoAssembler(ModelMapper modelMapper) {
+        super(modelMapper);
     }
 
-    public AutuacaoModel toModel(Autuacao autuacao) {
-        return modelMapper.map(autuacao, AutuacaoModel.class);
-    }
+    @Override
+    protected Class<Autuacao> getClassOfEntity() { return Autuacao.class; }
 
-    public List<AutuacaoModel> toCollectionModel(List<Autuacao> autuacoes) {
-        return autuacoes.stream()
-                .map(this::toModel)
-                .toList();
+    @Override
+    protected Class<AutuacaoModel> getClassOfOutputModel() {
+        return AutuacaoModel.class;
     }
 }
