@@ -1,10 +1,12 @@
-package com.algaworks.algatransito.api.assembler;
+package com.algaworks.algatransito.api.assembler.base;
 
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
+
+/*
+ * Classe para encapsular o uso do model mapper e deixar o controller livre da dependência.
+ * Também com o objetivo de prover reutilização de código das conversões de objetos.
+ */
 
 /**
  * Classe base para assemblers.
@@ -16,8 +18,6 @@ import java.util.List;
  * @param <U> Tipo parametrizado para a classe do modelo de representação de input de dados.
  * @param <V> Tipo parametrizado para a classe do modelo de representação de output de dados.
  */
-//@AllArgsConstructor
-@Component
 public abstract class BaseAssembler<T, U, V> {
 
     private final ModelMapper modelMapper;
