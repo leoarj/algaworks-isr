@@ -1,37 +1,25 @@
 package com.algaworks.algatransito.api.assembler;
 
+import com.algaworks.algatransito.api.assembler.base.BaseAssembler;
 import com.algaworks.algatransito.api.model.VeiculoModel;
 import com.algaworks.algatransito.api.model.input.VeiculoInput;
 import com.algaworks.algatransito.domain.model.Veiculo;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
-/*
-* Classe para encapsular o uso do model mapper e deixar o controller livre da dependência.
-* Também com o objetivo de prover reutilização de código das conversões de objetos.
-*/
-
-@AllArgsConstructor
 @Component
-public class VeiculoAssembler {
-
-    private final ModelMapper modelMapper;
-
-    // Adiciona transformação do modelo de entrada para entidade.
-    public Veiculo toEntity(VeiculoInput veiculoInput) {
-        return modelMapper.map(veiculoInput, Veiculo.class);
+public class VeiculoAssembler extends BaseAssembler<Veiculo, VeiculoInput, VeiculoModel> {
+    public VeiculoAssembler(ModelMapper modelMapper) {
+        super(modelMapper);
     }
 
-    public VeiculoModel toModel(Veiculo veiculo) {
-        return modelMapper.map(veiculo, VeiculoModel.class);
+    @Override
+    protected Class<Veiculo> getClassOfEntity() {
+        return Veiculo.class;
     }
 
-    public List<VeiculoModel> toCollectionModel(List<Veiculo> veiculos) {
-        return veiculos.stream()
-                .map(this::toModel)
-                .toList();
+    @Override
+    protected Class<VeiculoModel> getClassOfOutputModel() {
+        return VeiculoModel.class;
     }
 }
