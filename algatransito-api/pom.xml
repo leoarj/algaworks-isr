@@ -96,8 +96,10 @@
 				 e o mesmo só é utilizado em tempo de build. -->
 				<configuration>
 					<excludes>
-						<groupId>org.projectlombok</groupId>
-						<artifactId>lombok</artifactId>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
 					</excludes>
 				</configuration>
 
