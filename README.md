@@ -249,13 +249,15 @@ Spring = Ecossistema de tecnologias.
 
 O objetivo é focar nas regras de negócio, e não se preocupar demasiadamente com infra-estrutura.
 
->*Não que isso não seja importante, pelo contrário, é ideal conhecer as tecnologias que o Spring trabalha por "baixo" das abstrações, mas uma vez tendo esse entendimento, é muito válido prosseguir utilizando uma tecnlogia sólida com abstrações que facilitam o uso e principalmente não "reinventar a roda", além de ganhar velocidade e melhor entrega de valor para desenvolvedores e usuários finais de sistemas.*
+>*Não que isso não seja importante, pelo contrário, é ideal conhecer as tecnologias que o Spring trabalha por "baixo" das abstrações, mas uma vez tendo esse entendimento, é muito válido prosseguir utilizando uma tecnologia sólida com abstrações que facilitam o uso e principalmente não "reinventar a roda", além de ganhar velocidade e melhor entrega de valor para desenvolvedores e usuários finais de sistemas.*
 
 Spring Framework = base/core do projeto Spring.
 
 Spring possui diversos projetos e subprojetos.
 
 Um deles que é utilizado no projeto é o **Spring Boot**, que é focado na autoconfiguração e facilidade de se iniciar um projeto com suas dependências necessárias.
+
+Spring Boot segue uma configuração opinativa (segue uma convenção) e por padrão incorpora um servlet container (Tomcat).
 
 ## Flyway
 É um projeto que permite o gerenciamento dos objetos do banco de dados, como o versionamento e manutenção de migrações (Migrations), controlando a execução de scripts.
