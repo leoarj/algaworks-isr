@@ -1,6 +1,6 @@
 # ISR - Ignição Spring REST (algatransito-api)
 
-Um curso inicial sobre o básico de Spring, que aborda um pequeno projeto de uma API REST para um sistema de autuações de trânsito.
+Um pequeno projeto de uma API REST para um sistema de autuações de trânsito, com conceitos iniciais e básicos sobre Spring.
 
 O projeto consiste basicamente em definir 3 entidades no banco de dados e 4 recursos na API com seus endpoints executando diferentes ações utilizando a semântica do protocolo HTTP e seus verbos.
 
