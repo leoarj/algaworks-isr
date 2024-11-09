@@ -9,7 +9,8 @@ import java.util.List;
  */
 
 /**
- * Classe base para assemblers.
+ * Classe base para assemblers.<br/>
+ * @author Leandro Araújo - leandro.araujo@outlook.com
  * <br/><br/>
  * Estender essa classe para reaproveitar métodos de mapeamento dos objetos de
  * entidade, modelo de representação de entrada e modelo de representaçao de saída.
