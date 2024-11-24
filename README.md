@@ -2,11 +2,28 @@
 
 Um pequeno projeto de uma API REST para um sistema de autuações de trânsito, com conceitos iniciais e básicos sobre Spring.
 
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+![Apache Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)
+![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
+
+## Índice
+- [Sobre](#sobre)
+- [Tecnologias e ferramentas utilizadas](#tecnologias-e-ferramentas-utilizadas)
+- [Como executar](#como-executar)
+- [Tópicos explorados](#tópicos-explorados)
+- [Autor](#autor)
+- [Agradecimentos](#agradecimentos)
+- [Licença](#licença)
+
+## Sobre
 O projeto consiste basicamente em definir 3 entidades no banco de dados e 4 recursos na API com seus endpoints executando diferentes ações utilizando a semântica do protocolo HTTP e seus verbos.
 
 Este projeto aborda modelagem de operações CRUD e operações não-CRUD.
 
-## Modelo de domínio (Banco de dados)
+### Modelo de domínio (Banco de dados)
 As 3 entidades são:
 - **proprietario**
 >Tabela para o armazenamento de informações de um proprietário.
@@ -15,30 +32,30 @@ As 3 entidades são:
 - **autuacao**
 >Tabela para o armazenamento de infrações de um determinado veículo.
 
-## Recursos da API
+### Recursos da API
 
-### `/proprietarios`
+#### `/proprietarios`
 
 Recurso para manutenção de proprietários de veículos no backend.
 
 Documentação da API: https://documenter.getpostman.com/view/30781350/2s9YXo1f7V
 
-### `/veiculos`
+#### `/veiculos`
 
 Recurso para manutenção de veículos no backend e sub-recurso de apreensão.
 
-#### `/veiculos/{veiculoId}/apreensao`
+##### `/veiculos/{veiculoId}/apreensao`
 Sub-recurso para manutenção de aprensão relacionada a um veículo no backend.
 
 Documentação da API: https://documenter.getpostman.com/view/30781350/2s9YXo1f7X
 
-#### `/autuacoes/{veiculoId}/autuacoes`
+##### `/autuacoes/{veiculoId}/autuacoes`
 
 Sub-recurso para manutenção de autuações relacionadas a um veículo no backend.
 
 Documentação da API: https://documenter.getpostman.com/view/30781350/2s9YXo1f7Y
 
-## Tecnologias e ferramentas utilizadas
+### Tecnologias e ferramentas utilizadas
 - Plataforma: Java 17 (LTS) - OpenJDK Temurin
 - Spring:
     - Spring Framework
@@ -72,7 +89,7 @@ java -jar algatransito-api/target/algatransito-api-0.0.1-SNAPSHOT.jar
 localhost:8080
 ```
 
-## Resumo de alguns tópicos abordados
+## Tópicos explorados
 
 ### API
 *Application Programming Interface.*
@@ -417,10 +434,26 @@ ____
 ## Considerações finais
 Este é um projeto básico e introdutório à construção de APIs REST com Spring.
 
-Não foram implementados recursos de segurança entre outras funcionalidades.
+Não foram implementados recursos de segurança entre outras funcionalidades devido didática do projeto.
 
 ### Melhorias futuras pretendidas:
 - Persistência com Postgres.
 - Geração de imagem docker.
 
+## Autor
+Leandro Araújo, desenvolvedor Java, com foco em backend.<br>
+Busco me aperfeiçoar por meio de cursos e projetos como este, a fim de crescer profissionalmente e humanamente por meio da colaboração.<br><br>
+Caso se sinta à vontade, pode entrar em contato:
+- https://www.linkedin.com/in/leandroaraujoti/
+
+## Agradecimentos
+- https://www.algaworks.com/
+- https://blog.algaworks.com/
+
+## Licença
+Este projeto é licenciado sob a [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
+
+Para mais detalhes, consulte o arquivo [LICENSE](./LICENSE).
+
+[Voltar ao início](#isr---ignição-spring-rest-algatransito-api)
 ____
